@@ -1,0 +1,1536 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>PALE STILL GOODS — PSG</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500&family=Playfair+Display:ital@1&display=swap" rel="stylesheet"/>
+<style>
+  :root {
+    --black: #111111;
+    --white: #ffffff;
+    --pink: #e91e8c;
+    --pink-dim: rgba(233,30,140,0.15);
+    --pink-glow: rgba(233,30,140,0.4);
+    --gray: #1e1e1e;
+    --gray-mid: #2e2e2e;
+    --gray-light: #888;
+    --font-display: 'Bebas Neue', sans-serif;
+    --font-body: 'DM Sans', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--pink);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transition: transform 0.15s ease, width 0.2s, height 0.2s;
+    transform: translate(-50%, -50%);
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid rgba(233,30,140,0.5);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transition: transform 0.4s ease, width 0.3s, height 0.3s, opacity 0.3s;
+    transform: translate(-50%, -50%);
+  }
+  body:hover .cursor { opacity: 1; }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 48px;
+    background: linear-gradient(to bottom, rgba(17,17,17,0.95), transparent);
+    backdrop-filter: blur(2px);
+  }
+
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 6px;
+    color: var(--white);
+    text-decoration: none;
+  }
+  .nav-logo span { color: var(--pink); }
+
+  .nav-links {
+    display: flex;
+    gap: 40px;
+    list-style: none;
+  }
+  .nav-links a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--pink); }
+
+  .nav-actions {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+  .nav-actions button {
+    background: none;
+    border: none;
+    color: var(--white);
+    font-size: 18px;
+    cursor: none;
+    transition: color 0.3s;
+  }
+  .nav-actions button:hover { color: var(--pink); }
+
+  .cart-count {
+    background: var(--pink);
+    color: var(--white);
+    font-size: 9px;
+    width: 16px; height: 16px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: -6px; right: -6px;
+    font-weight: 500;
+  }
+
+  /* HERO */
+  .hero {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-text {
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: clamp(200px, 35vw, 420px);
+    color: rgba(255,255,255,0.04);
+    letter-spacing: -10px;
+    user-select: none;
+    animation: floatBg 12s ease-in-out infinite;
+    white-space: nowrap;
+  }
+
+  @keyframes floatBg {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-20px); }
+  }
+
+  .hero-logo-wrap {
+    position: relative;
+    text-align: center;
+    animation: fadeUp 1.2s ease forwards;
+    opacity: 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(40px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .hero-psg {
+    font-family: var(--font-display);
+    font-size: clamp(100px, 20vw, 220px);
+    letter-spacing: 20px;
+    color: var(--white);
+    line-height: 1;
+    position: relative;
+  }
+
+  .hero-psg::after {
+    content: 'PSG';
+    position: absolute;
+    inset: 0;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(233,30,140,0.3);
+    transform: translate(3px, 3px);
+  }
+
+  .hero-wordmark {
+    font-family: var(--font-display);
+    font-size: clamp(14px, 2vw, 22px);
+    letter-spacing: clamp(6px, 2vw, 18px);
+    color: var(--pink);
+    margin-top: -10px;
+    text-align: center;
+  }
+
+  .hero-est {
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--gray-light);
+    margin-top: 6px;
+    font-weight: 300;
+  }
+
+  .hero-cta {
+    margin-top: 60px;
+    display: flex;
+    gap: 20px;
+    animation: fadeUp 1.4s ease 0.3s forwards;
+    opacity: 0;
+  }
+
+  .btn-primary {
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 14px 40px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 4px;
+    cursor: none;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--white);
+    color: var(--black);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white);
+    border: 1px solid rgba(255,255,255,0.3);
+    padding: 14px 40px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 4px;
+    cursor: none;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-block;
+  }
+  .btn-outline:hover {
+    border-color: var(--pink);
+    color: var(--pink);
+  }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    animation: fadeUp 1.6s ease 0.6s forwards;
+    opacity: 0;
+  }
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 4px;
+    color: var(--gray-light);
+    text-transform: uppercase;
+  }
+  .scroll-line {
+    width: 1px;
+    height: 50px;
+    background: linear-gradient(to bottom, var(--pink), transparent);
+    animation: scrollPulse 2s ease infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.2); }
+  }
+
+  /* MARQUEE */
+  .marquee-wrap {
+    overflow: hidden;
+    border-top: 1px solid var(--gray-mid);
+    border-bottom: 1px solid var(--gray-mid);
+    padding: 16px 0;
+    background: var(--gray);
+  }
+  .marquee-track {
+    display: flex;
+    gap: 60px;
+    animation: marquee 20s linear infinite;
+    white-space: nowrap;
+  }
+  .marquee-track span {
+    font-family: var(--font-display);
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--gray-light);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .marquee-track span.accent { color: var(--pink); }
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+
+  /* SECTION HEADER */
+  .section-header {
+    text-align: center;
+    margin-bottom: 60px;
+  }
+  .section-label {
+    font-size: 10px;
+    letter-spacing: 6px;
+    color: var(--pink);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    display: block;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 90px);
+    letter-spacing: 4px;
+    line-height: 0.95;
+  }
+
+  /* FEATURED */
+  .featured {
+    padding: 100px 48px;
+  }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+
+  .product-card {
+    position: relative;
+    overflow: hidden;
+    background: var(--gray);
+    cursor: none;
+  }
+
+  .product-card.large {
+    grid-row: span 2;
+  }
+
+  .product-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s ease;
+    background: var(--gray-mid);
+    position: relative;
+  }
+
+  .product-card.large .product-img {
+    aspect-ratio: auto;
+    height: 100%;
+  }
+
+  /* Placeholder product images using CSS */
+  .product-img-placeholder {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--gray-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.8s ease;
+  }
+
+  .product-card.large .product-img-placeholder {
+    aspect-ratio: unset;
+    height: 100%;
+    min-height: 600px;
+  }
+
+  .product-img-placeholder::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1e1e1e 0%, #2a2a2a 50%, #1a1a1a 100%);
+  }
+
+  .product-img-placeholder .placeholder-label {
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: rgba(255,255,255,0.06);
+    letter-spacing: 4px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .product-card:hover .product-img-placeholder {
+    transform: scale(1.04);
+  }
+
+  .product-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,17,17,0.95) 0%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px;
+    transform: translateY(20px);
+    opacity: 0;
+    transition: all 0.4s ease;
+  }
+
+  .product-card:hover .product-overlay {
+    transform: translateY(0);
+    opacity: 1;
+  }
+
+  .product-info {
+    padding: 20px 24px;
+    background: var(--gray);
+    border-top: 1px solid var(--gray-mid);
+  }
+
+  .product-name {
+    font-family: var(--font-display);
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+
+  .product-price {
+    font-size: 13px;
+    color: var(--pink);
+    letter-spacing: 2px;
+  }
+
+  .product-tag {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    background: var(--pink);
+    color: var(--white);
+    font-size: 9px;
+    letter-spacing: 3px;
+    padding: 4px 10px;
+    text-transform: uppercase;
+    font-weight: 500;
+    z-index: 2;
+  }
+
+  .add-to-cart-btn {
+    width: 100%;
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 12px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: none;
+    transition: background 0.3s;
+  }
+  .add-to-cart-btn:hover { background: var(--white); color: var(--black); }
+
+  /* EDITORIAL */
+  .editorial {
+    padding: 100px 48px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .editorial-visual {
+    position: relative;
+  }
+
+  .editorial-img-box {
+    width: 100%;
+    aspect-ratio: 4/5;
+    background: var(--gray-mid);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .editorial-img-box::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(145deg, #1e1e1e, #2a2a2a);
+  }
+
+  .editorial-img-box .big-letter {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 200px;
+    color: rgba(233,30,140,0.08);
+    letter-spacing: -5px;
+  }
+
+  .editorial-accent {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 200px;
+    height: 200px;
+    border: 1px solid var(--pink);
+    z-index: -1;
+  }
+
+  .editorial-content { }
+
+  .editorial-content .section-label { text-align: left; }
+
+  .editorial-title {
+    font-family: var(--font-display);
+    font-size: clamp(52px, 6vw, 80px);
+    line-height: 0.95;
+    letter-spacing: 2px;
+    margin-bottom: 28px;
+  }
+
+  .editorial-title em {
+    font-family: var(--font-serif);
+    color: var(--pink);
+    font-style: italic;
+    font-size: 0.9em;
+  }
+
+  .editorial-body {
+    font-size: 14px;
+    line-height: 1.9;
+    color: var(--gray-light);
+    margin-bottom: 40px;
+    max-width: 400px;
+  }
+
+  /* CATEGORIES */
+  .categories {
+    padding: 100px 48px;
+    background: var(--gray);
+  }
+
+  .categories-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2px;
+    margin-top: 60px;
+  }
+
+  .category-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+
+  .category-bg {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--gray-mid);
+    position: relative;
+    transition: transform 0.6s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .category-card:hover .category-bg { transform: scale(1.06); }
+
+  .category-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(17,17,17,0.9), rgba(17,17,17,0.2));
+    z-index: 1;
+  }
+
+  .category-bg .cat-letter {
+    font-family: var(--font-display);
+    font-size: 120px;
+    color: rgba(255,255,255,0.05);
+    position: relative;
+    z-index: 0;
+  }
+
+  .category-label {
+    position: absolute;
+    bottom: 24px;
+    left: 24px;
+    z-index: 2;
+  }
+
+  .category-label h3 {
+    font-family: var(--font-display);
+    font-size: 28px;
+    letter-spacing: 3px;
+  }
+
+  .category-label span {
+    font-size: 11px;
+    color: var(--pink);
+    letter-spacing: 3px;
+  }
+
+  /* NEW ARRIVALS */
+  .new-arrivals {
+    padding: 100px 48px;
+  }
+
+  .arrivals-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 24px;
+    margin-top: 60px;
+  }
+
+  .arrival-card {
+    cursor: none;
+  }
+
+  .arrival-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    background: var(--gray-mid);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.4s;
+  }
+
+  .arrival-img::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, #1c1c1c, #252525);
+  }
+
+  .arrival-img .arrival-letter {
+    font-family: var(--font-display);
+    font-size: 80px;
+    color: rgba(255,255,255,0.05);
+    position: relative;
+  }
+
+  .arrival-card:hover .arrival-img {
+    box-shadow: 0 0 40px var(--pink-glow);
+  }
+
+  .arrival-card h4 {
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .arrival-card .price {
+    font-size: 13px;
+    color: var(--pink);
+  }
+
+  .arrival-sizes {
+    display: flex;
+    gap: 6px;
+    margin-top: 10px;
+  }
+
+  .size-dot {
+    width: 28px;
+    height: 28px;
+    border: 1px solid var(--gray-mid);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    color: var(--gray-light);
+    letter-spacing: 0;
+    transition: all 0.2s;
+    cursor: none;
+  }
+
+  .size-dot:hover {
+    border-color: var(--pink);
+    color: var(--pink);
+  }
+
+  .size-dot.active {
+    background: var(--pink);
+    border-color: var(--pink);
+    color: var(--white);
+  }
+
+  /* NEWSLETTER */
+  .newsletter {
+    padding: 100px 48px;
+    background: var(--gray);
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .newsletter::before {
+    content: 'PSG';
+    position: absolute;
+    font-family: var(--font-display);
+    font-size: 400px;
+    color: rgba(255,255,255,0.02);
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    letter-spacing: -10px;
+    user-select: none;
+    pointer-events: none;
+  }
+
+  .newsletter-title {
+    font-family: var(--font-display);
+    font-size: clamp(48px, 8vw, 100px);
+    letter-spacing: 4px;
+    line-height: 0.95;
+    margin-bottom: 20px;
+    position: relative;
+  }
+
+  .newsletter-sub {
+    font-size: 13px;
+    color: var(--gray-light);
+    letter-spacing: 3px;
+    margin-bottom: 48px;
+    position: relative;
+  }
+
+  .newsletter-form {
+    display: flex;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .newsletter-form input {
+    flex: 1;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--gray-mid);
+    border-right: none;
+    padding: 16px 24px;
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 13px;
+    letter-spacing: 2px;
+    outline: none;
+    transition: border-color 0.3s;
+  }
+
+  .newsletter-form input::placeholder { color: var(--gray-light); }
+  .newsletter-form input:focus { border-color: var(--pink); }
+
+  .newsletter-form button {
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 16px 32px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 4px;
+    cursor: none;
+    transition: background 0.3s;
+    white-space: nowrap;
+  }
+
+  .newsletter-form button:hover { background: var(--white); color: var(--black); }
+
+  /* FOOTER */
+  footer {
+    padding: 80px 48px 40px;
+    border-top: 1px solid var(--gray-mid);
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 60px;
+  }
+
+  .footer-brand .logo {
+    font-family: var(--font-display);
+    font-size: 36px;
+    letter-spacing: 6px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .footer-brand .logo span { color: var(--pink); }
+
+  .footer-brand p {
+    font-size: 13px;
+    color: var(--gray-light);
+    line-height: 1.8;
+    max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 4px;
+    margin-bottom: 24px;
+    color: var(--pink);
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .footer-col ul a {
+    font-size: 13px;
+    color: var(--gray-light);
+    text-decoration: none;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+  }
+
+  .footer-col ul a:hover { color: var(--white); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--gray-mid);
+    padding-top: 32px;
+    font-size: 11px;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+  }
+
+  .social-links {
+    display: flex;
+    gap: 24px;
+  }
+
+  .social-links a {
+    color: var(--gray-light);
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 3px;
+    transition: color 0.3s;
+  }
+
+  .social-links a:hover { color: var(--pink); }
+
+  /* CART SIDEBAR */
+  .cart-sidebar {
+    position: fixed;
+    top: 0; right: -440px;
+    width: 440px;
+    height: 100vh;
+    background: #161616;
+    border-left: 1px solid var(--gray-mid);
+    z-index: 200;
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .cart-sidebar.open { right: 0; }
+
+  .cart-header {
+    padding: 28px 32px;
+    border-bottom: 1px solid var(--gray-mid);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .cart-header h2 {
+    font-family: var(--font-display);
+    font-size: 24px;
+    letter-spacing: 4px;
+  }
+
+  .cart-close {
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    font-size: 24px;
+    cursor: none;
+    transition: color 0.3s;
+  }
+  .cart-close:hover { color: var(--pink); }
+
+  .cart-items {
+    flex: 1;
+    overflow-y: auto;
+    padding: 24px 32px;
+  }
+
+  .cart-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    gap: 16px;
+    color: var(--gray-light);
+  }
+
+  .cart-empty .empty-icon {
+    font-family: var(--font-display);
+    font-size: 60px;
+    color: rgba(233,30,140,0.2);
+  }
+
+  .cart-empty p {
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+  }
+
+  .cart-item {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid var(--gray-mid);
+    animation: fadeUp 0.3s ease;
+  }
+
+  .cart-item-img {
+    width: 80px;
+    height: 100px;
+    background: var(--gray-mid);
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-display);
+    font-size: 24px;
+    color: rgba(255,255,255,0.1);
+  }
+
+  .cart-item-info { flex: 1; }
+
+  .cart-item-name {
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 2px;
+    margin-bottom: 4px;
+  }
+
+  .cart-item-size {
+    font-size: 11px;
+    color: var(--gray-light);
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .cart-item-price {
+    font-size: 13px;
+    color: var(--pink);
+  }
+
+  .cart-item-remove {
+    background: none;
+    border: none;
+    color: var(--gray-light);
+    font-size: 16px;
+    cursor: none;
+    align-self: flex-start;
+    transition: color 0.3s;
+  }
+  .cart-item-remove:hover { color: var(--pink); }
+
+  .cart-footer {
+    padding: 24px 32px;
+    border-top: 1px solid var(--gray-mid);
+  }
+
+  .cart-total {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    font-family: var(--font-display);
+    font-size: 18px;
+    letter-spacing: 3px;
+  }
+
+  .checkout-btn {
+    width: 100%;
+    background: var(--pink);
+    color: var(--white);
+    border: none;
+    padding: 18px;
+    font-family: var(--font-display);
+    font-size: 16px;
+    letter-spacing: 6px;
+    cursor: none;
+    transition: all 0.3s;
+  }
+  .checkout-btn:hover { background: var(--white); color: var(--black); }
+
+  /* OVERLAY */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.6);
+    z-index: 150;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.4s;
+    backdrop-filter: blur(4px);
+  }
+  .overlay.active { opacity: 1; pointer-events: all; }
+
+  /* TOAST */
+  .toast {
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: var(--pink);
+    color: var(--white);
+    padding: 14px 32px;
+    font-family: var(--font-display);
+    font-size: 14px;
+    letter-spacing: 4px;
+    z-index: 500;
+    transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    white-space: nowrap;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* Utility */
+  .pink { color: var(--pink); }
+  section { position: relative; }
+
+  /* Scrollbar */
+  ::-webkit-scrollbar { width: 4px; }
+  ::-webkit-scrollbar-track { background: var(--black); }
+  ::-webkit-scrollbar-thumb { background: var(--pink); }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- OVERLAY -->
+<div class="overlay" id="overlay" onclick="closeCart()"></div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<!-- CART SIDEBAR -->
+<div class="cart-sidebar" id="cartSidebar">
+  <div class="cart-header">
+    <h2>YOUR BAG</h2>
+    <button class="cart-close" onclick="closeCart()">✕</button>
+  </div>
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="empty-icon">PSG</div>
+      <p>Your bag is empty</p>
+    </div>
+  </div>
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span>TOTAL</span>
+      <span id="cartTotal">$0.00</span>
+    </div>
+    <button class="checkout-btn" onclick="showToast('Checkout coming soon')">CHECKOUT</button>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-logo"><span>P</span>SG</a>
+  <ul class="nav-links">
+    <li><a href="#featured">Shop</a></li>
+    <li><a href="#categories">Collections</a></li>
+    <li><a href="#new">New In</a></li>
+    <li><a href="#about">About</a></li>
+  </ul>
+  <div class="nav-actions">
+    <div style="position:relative">
+      <button onclick="openCart()" title="Cart">🛍</button>
+      <div class="cart-count" id="cartCount">0</div>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg-text">PSG</div>
+  <div class="hero-logo-wrap">
+    <div class="hero-psg">PSG</div>
+    <div class="hero-wordmark">PALE STILL GOODS</div>
+    <div class="hero-est">EST 2026</div>
+  </div>
+  <div class="hero-cta">
+    <a href="#featured" class="btn-primary">SHOP NOW</a>
+    <a href="#about" class="btn-outline">OUR STORY</a>
+  </div>
+  <div class="hero-scroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marquee-wrap">
+  <div class="marquee-track">
+    <span>PALE STILL GOODS</span><span class="accent">—</span>
+    <span>EST 2026</span><span class="accent">—</span>
+    <span>PSG</span><span class="accent">—</span>
+    <span>STREETWEAR</span><span class="accent">—</span>
+    <span>MINIMAL CULTURE</span><span class="accent">—</span>
+    <span>PALE STILL GOODS</span><span class="accent">—</span>
+    <span>EST 2026</span><span class="accent">—</span>
+    <span>PSG</span><span class="accent">—</span>
+    <span>STREETWEAR</span><span class="accent">—</span>
+    <span>MINIMAL CULTURE</span><span class="accent">—</span>
+    <span>PALE STILL GOODS</span><span class="accent">—</span>
+    <span>EST 2026</span><span class="accent">—</span>
+    <span>PSG</span><span class="accent">—</span>
+    <span>STREETWEAR</span><span class="accent">—</span>
+    <span>MINIMAL CULTURE</span><span class="accent">—</span>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="featured" id="featured">
+  <div class="section-header">
+    <span class="section-label">— Featured Drop —</span>
+    <h2 class="section-title">THE COLLECTION</h2>
+  </div>
+  <div class="products-grid">
+    <div class="product-card large" style="grid-column:1; grid-row: 1/3;">
+      <div class="product-tag">DROP 01</div>
+      <div class="product-img-placeholder" style="min-height:660px">
+        <span class="placeholder-label">PSG</span>
+      </div>
+      <div class="product-overlay">
+        <button class="add-to-cart-btn" onclick="addToCart('PSG OVERSIZED TEE', 149)">ADD TO BAG — $149</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">PSG OVERSIZED TEE</div>
+        <div class="product-price">$149 AUD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-placeholder">
+        <span class="placeholder-label">01</span>
+      </div>
+      <div class="product-overlay">
+        <button class="add-to-cart-btn" onclick="addToCart('STILL HOODIE', 229)">ADD TO BAG — $229</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">STILL HOODIE</div>
+        <div class="product-price">$229 AUD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-tag">NEW</div>
+      <div class="product-img-placeholder">
+        <span class="placeholder-label">02</span>
+      </div>
+      <div class="product-overlay">
+        <button class="add-to-cart-btn" onclick="addToCart('PALE CARGO PANT', 279)">ADD TO BAG — $279</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">PALE CARGO PANT</div>
+        <div class="product-price">$279 AUD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-placeholder">
+        <span class="placeholder-label">03</span>
+      </div>
+      <div class="product-overlay">
+        <button class="add-to-cart-btn" onclick="addToCart('VOID LONG SLEEVE', 179)">ADD TO BAG — $179</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">VOID LONG SLEEVE</div>
+        <div class="product-price">$179 AUD</div>
+      </div>
+    </div>
+    <div class="product-card">
+      <div class="product-img-placeholder">
+        <span class="placeholder-label">04</span>
+      </div>
+      <div class="product-overlay">
+        <button class="add-to-cart-btn" onclick="addToCart('DRIFT SHORTS', 139)">ADD TO BAG — $139</button>
+      </div>
+      <div class="product-info">
+        <div class="product-name">DRIFT SHORTS</div>
+        <div class="product-price">$139 AUD</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EDITORIAL -->
+<section class="editorial" id="about">
+  <div class="editorial-visual">
+    <div class="editorial-img-box">
+      <div class="big-letter">PSG</div>
+    </div>
+    <div class="editorial-accent"></div>
+  </div>
+  <div class="editorial-content">
+    <span class="section-label">— Our Story —</span>
+    <h2 class="editorial-title">BORN FROM<br><em>stillness</em></h2>
+    <p class="editorial-body">
+      Pale Still Goods is built for those who move quietly through the world. 
+      No noise. No excess. Just clean lines, considered cuts, and pieces that 
+      outlast the trend cycle. We make clothes for people who don't need to 
+      announce themselves — the ones who already know.
+    </p>
+    <p class="editorial-body">
+      Founded in 2026, PSG is rooted in Australian streetwear culture 
+      with a minimal edge. Every drop is limited. Every piece is intentional.
+    </p>
+    <a href="#featured" class="btn-primary">EXPLORE THE DROP</a>
+  </div>
+</section>
+
+<!-- CATEGORIES -->
+<section class="categories" id="categories">
+  <div class="section-header">
+    <span class="section-label">— Browse By —</span>
+    <h2 class="section-title">CATEGORIES</h2>
+  </div>
+  <div class="categories-grid">
+    <div class="category-card" onclick="showToast('Tops Collection — Coming Soon')">
+      <div class="category-bg">
+        <span class="cat-letter">T</span>
+      </div>
+      <div class="category-label">
+        <h3>TOPS</h3>
+        <span>12 PIECES</span>
+      </div>
+    </div>
+    <div class="category-card" onclick="showToast('Bottoms Collection — Coming Soon')">
+      <div class="category-bg">
+        <span class="cat-letter">B</span>
+      </div>
+      <div class="category-label">
+        <h3>BOTTOMS</h3>
+        <span>8 PIECES</span>
+      </div>
+    </div>
+    <div class="category-card" onclick="showToast('Outerwear Collection — Coming Soon')">
+      <div class="category-bg">
+        <span class="cat-letter">O</span>
+      </div>
+      <div class="category-label">
+        <h3>OUTERWEAR</h3>
+        <span>6 PIECES</span>
+      </div>
+    </div>
+    <div class="category-card" onclick="showToast('Accessories — Coming Soon')">
+      <div class="category-bg">
+        <span class="cat-letter">A</span>
+      </div>
+      <div class="category-label">
+        <h3>ACCESSORIES</h3>
+        <span>10 PIECES</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEW ARRIVALS -->
+<section class="new-arrivals" id="new">
+  <div class="section-header">
+    <span class="section-label">— Just Dropped —</span>
+    <h2 class="section-title">NEW IN</h2>
+  </div>
+  <div class="arrivals-grid">
+    <div class="arrival-card">
+      <div class="arrival-img"><span class="arrival-letter">PSG</span></div>
+      <h4>GREY MATTER TEE</h4>
+      <div class="price">$129 AUD</div>
+      <div class="arrival-sizes">
+        <div class="size-dot active">XS</div>
+        <div class="size-dot">S</div>
+        <div class="size-dot">M</div>
+        <div class="size-dot">L</div>
+        <div class="size-dot">XL</div>
+      </div>
+    </div>
+    <div class="arrival-card">
+      <div class="arrival-img"><span class="arrival-letter">PSG</span></div>
+      <h4>FORM TRACK PANT</h4>
+      <div class="price">$219 AUD</div>
+      <div class="arrival-sizes">
+        <div class="size-dot">XS</div>
+        <div class="size-dot active">S</div>
+        <div class="size-dot">M</div>
+        <div class="size-dot">L</div>
+        <div class="size-dot">XL</div>
+      </div>
+    </div>
+    <div class="arrival-card">
+      <div class="arrival-img"><span class="arrival-letter">PSG</span></div>
+      <h4>NULL BOMBER</h4>
+      <div class="price">$349 AUD</div>
+      <div class="arrival-sizes">
+        <div class="size-dot">XS</div>
+        <div class="size-dot">S</div>
+        <div class="size-dot active">M</div>
+        <div class="size-dot">L</div>
+        <div class="size-dot">XL</div>
+      </div>
+    </div>
+    <div class="arrival-card">
+      <div class="arrival-img"><span class="arrival-letter">PSG</span></div>
+      <h4>SILENT CAP</h4>
+      <div class="price">$79 AUD</div>
+      <div class="arrival-sizes">
+        <div class="size-dot active">OS</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NEWSLETTER -->
+<section class="newsletter">
+  <h2 class="newsletter-title">STAY<br><span class="pink">STILL</span></h2>
+  <p class="newsletter-sub">Early access. Drop alerts. Nothing else.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="YOUR EMAIL" id="emailInput"/>
+    <button onclick="handleNewsletter()">JOIN</button>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <span class="logo"><span>P</span>SG</span>
+      <p>Pale Still Goods — minimal streetwear rooted in stillness. Est. 2026, Australia.</p>
+    </div>
+    <div class="footer-col">
+      <h4>SHOP</h4>
+      <ul>
+        <li><a href="#">New In</a></li>
+        <li><a href="#">Tops</a></li>
+        <li><a href="#">Bottoms</a></li>
+        <li><a href="#">Outerwear</a></li>
+        <li><a href="#">Accessories</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>INFO</h4>
+      <ul>
+        <li><a href="#">About PSG</a></li>
+        <li><a href="#">Sizing Guide</a></li>
+        <li><a href="#">Shipping & Returns</a></li>
+        <li><a href="#">Stockists</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>FOLLOW</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">TikTok</a></li>
+        <li><a href="#">Pinterest</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 PALE STILL GOODS — ALL RIGHTS RESERVED</span>
+    <div class="social-links">
+      <a href="#">IG</a>
+      <a href="#">TT</a>
+      <a href="#">PIN</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) *.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animRing);
+  }
+  animRing();
+
+  document.querySelectorAll('a, button, .product-card, .category-card, .arrival-card, .size-dot').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(2.5)';
+      ring.style.width = '60px'; ring.style.height = '60px';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%,-50%) scale(1)';
+      ring.style.width = '36px'; ring.style.height = '36px';
+    });
+  });
+
+  // Cart
+  let cart = [];
+
+  function openCart() {
+    document.getElementById('cartSidebar').classList.add('open');
+    document.getElementById('overlay').classList.add('active');
+    renderCart();
+  }
+
+  function closeCart() {
+    document.getElementById('cartSidebar').classList.remove('open');
+    document.getElementById('overlay').classList.remove('active');
+  }
+
+  function addToCart(name, price) {
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ name, price, qty: 1 });
+    }
+    updateCartCount();
+    showToast(name + ' ADDED TO BAG');
+    openCart();
+  }
+
+  function removeFromCart(index) {
+    cart.splice(index, 1);
+    updateCartCount();
+    renderCart();
+  }
+
+  function updateCartCount() {
+    const total = cart.reduce((s, i) => s + i.qty, 0);
+    document.getElementById('cartCount').textContent = total;
+  }
+
+  function renderCart() {
+    const container = document.getElementById('cartItems');
+    const totalEl = document.getElementById('cartTotal');
+
+    if (cart.length === 0) {
+      container.innerHTML = `<div class="cart-empty"><div class="empty-icon">PSG</div><p>Your bag is empty</p></div>`;
+      totalEl.textContent = '$0.00';
+      return;
+    }
+
+    let html = '';
+    let total = 0;
+
+    cart.forEach((item, i) => {
+      total += item.price * item.qty;
+      html += `
+        <div class="cart-item">
+          <div class="cart-item-img">PSG</div>
+          <div class="cart-item-info">
+            <div class="cart-item-name">${item.name}</div>
+            <div class="cart-item-size">QTY: ${item.qty}</div>
+            <div class="cart-item-price">$${(item.price * item.qty).toFixed(2)} AUD</div>
+          </div>
+          <button class="cart-item-remove" onclick="removeFromCart(${i})">✕</button>
+        </div>`;
+    });
+
+    container.innerHTML = html;
+    totalEl.textContent = '$' + total.toFixed(2);
+  }
+
+  // Toast
+  let toastTimer;
+  function showToast(msg) {
+    const toast = document.getElementById('toast');
+    toast.textContent = msg;
+    toast.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+  }
+
+  // Newsletter
+  function handleNewsletter() {
+    const input = document.getElementById('emailInput');
+    if (input.value && input.value.includes('@')) {
+      showToast('YOU\'RE ON THE LIST');
+      input.value = '';
+    } else {
+      showToast('ENTER A VALID EMAIL');
+    }
+  }
+
+  // Size selection
+  document.querySelectorAll('.arrival-sizes').forEach(group => {
+    group.querySelectorAll('.size-dot').forEach(dot => {
+      dot.addEventListener('click', () => {
+        group.querySelectorAll('.size-dot').forEach(d => d.classList.remove('active'));
+        dot.classList.add('active');
+      });
+    });
+  });
+
+  // Scroll reveal
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.style.opacity = '1';
+        e.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.product-card, .arrival-card, .category-card, .editorial-content, .editorial-visual').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = 'opacity 0.7s ease, transform 0.7s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
